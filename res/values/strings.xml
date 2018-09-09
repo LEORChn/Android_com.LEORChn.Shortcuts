@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Shortcuts by LEORChn</string>
+	<string name="app_name_main">Shortcuts</string>
+	<string name="app_name_creating">Create custom shortcut</string>
+	<string name="app_v">&#160;v</string>
+	<string name="notice_launcher_not_support"><![CDATA[CAUTION\nPlease using [Add to Home screen] from your Launcher, and select [Shortcut] or [Widget] to enter this program,\nOr update your Launcher.\n\nBecause detected your device using Android Oreo or higher version, its means the system interface was updated, and deprecated old interface. If the Launcher still using old interface, the program which wants to add shortcut to home screen will be not working.]]></string>
+	<string name="notice_content_path"><![CDATA[CAUTION\nBe careful create shortcut by using path like this, it might will not correct working.\nYou can try use ACTION_OPEN_DOCUMENT.]]></string>
+</resources>

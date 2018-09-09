@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.LEORChn.Shortcuts" android:versionCode="101002"
+    android:versionName="1.1.2">
+	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="19" />
+	<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <application
+		android:name="leorchn.App"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity android:name="appforms.Main" android:label="@string/app_name_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+				<action android:name="android.intent.action.CREATE_SHORTCUT" />
+            </intent-filter>
+        </activity>
+		<activity android:name="appforms.Creating" android:label="@string/app_name_creating">
+            <intent-filter><!--分享文本到此处-->
+				<action android:name="android.intent.action.SEND" />
+				<action android:name="android.intent.action.SEND_MULTIPLE" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="*/*" />
+			</intent-filter>
+        </activity>
+		<activity android:name="appforms.ActivitiesChooser" android:label="选择默认执行的程序"/>
+		<!--
+			taskAffinity：如果主界面在后台，保证在通过桌面运行快捷方式时不会返回到主界面
+			excludeFromRecents：由于设置了taskAffinity，而需要从 “最近任务” 列表中移除
+			exported：确保外部能通过此接口调用快捷方式
+		-->
+		<activity
+			android:name="appforms.ShortcutExecuter"
+			android:taskAffinity="appforms.ShortcutExecuter"
+			android:excludeFromRecents="true"
+			android:exported="true"/>
+    </application>
+
+</manifest>

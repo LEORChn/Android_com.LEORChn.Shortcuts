@@ -1,0 +1,50 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@drawable/topmenu_upload"
+		android:icon="@drawable/topmenu_upload"
+		android:title="自定义-上传图片"/>
+	<item android:enabled="false"
+		android:id="@drawable/topmenu_edit"
+		android:icon="@drawable/topmenu_edit"
+		android:title="自定义-选择程序图标(以后版本)"/>
+	<item
+		android:id="@drawable/file_word"
+		android:icon="@drawable/file_word"
+		android:title="文件"/>
+	<item
+		android:id="@drawable/file_text"
+		android:icon="@drawable/file_text"
+		android:title="文本"/>
+	<item
+		android:id="@drawable/file_music"
+		android:icon="@drawable/file_music"
+		android:title="音乐"/>
+	<item
+		android:id="@drawable/file_video"
+		android:icon="@drawable/file_video"
+		android:title="视频"/>
+	<item
+		android:id="@drawable/file_image0"
+		android:icon="@drawable/file_image0"
+		android:title="图像 1"/>
+	<item
+		android:id="@drawable/file_image1"
+		android:icon="@drawable/file_image1"
+		android:title="图像 2"/>
+	<item
+		android:id="@drawable/file_image2"
+		android:icon="@drawable/file_image2"
+		android:title="图像 3"/>
+	<item
+		android:id="@drawable/file_image3"
+		android:icon="@drawable/file_image3"
+		android:title="图像 4"/>
+	<item
+		android:id="@drawable/file_shell"
+		android:icon="@drawable/file_shell"
+		android:title="命令"/>
+	<item
+		android:id="@drawable/file_help"
+		android:icon="@drawable/file_help"
+		android:title="帮助"/>
+</menu>

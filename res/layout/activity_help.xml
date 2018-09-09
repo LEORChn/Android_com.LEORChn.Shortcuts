@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:padding="10dp">
+
+		<TextView
+			android:id="@+id/notice_launcher_not_support"
+			android:visibility="gone"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:layout_marginBottom="10dp"
+			android:text="@string/notice_launcher_not_support"
+			android:background="#80ff8000"
+			android:padding="10dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="使用方法"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"/>
+
+		<View
+			android:layout_height="1dp"
+			android:background="?android:attr/dividerVertical"
+			android:layout_width="match_parent"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="方法1：选择一个文件或者一段文字，然后选择 “分享” -&gt; “创建自定义快捷方式”。"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="方法2：在桌面选择 “添加” -&gt; “快捷方式” -&gt; “小瑞快捷方式”，然后点击下方按钮创建快捷方式。"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="方法3：通过点击以下按钮立即创建快捷方式。"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="√ 当前是通过桌面创建快捷方式"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="5dp"
+			android:id="@+id/help_isfromdesktop"
+			android:visibility="gone"
+			android:textColor="#00ff00"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<Button
+				android:layout_height="wrap_content"
+				android:text="读取剪贴板文本"
+				android:layout_width="wrap_content"
+				style="?android:attr/buttonStyleSmall"
+				android:id="@+id/help_clipboard"/>
+
+			<Button
+				android:layout_height="wrap_content"
+				style="?android:attr/buttonStyleSmall"
+				android:text="选择文件"
+				android:layout_width="wrap_content"
+				android:id="@+id/help_file"/>
+
+		</LinearLayout>
+
+		<Button
+			android:enabled="false"
+			android:layout_height="wrap_content"
+			style="?android:attr/buttonStyleSmall"
+			android:text="（以后版本）从临时草稿箱创建"
+			android:layout_width="wrap_content"
+			android:id="@+id/creat_draft"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="选项"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="10dp"/>
+
+		<View
+			android:layout_height="1dp"
+			android:background="?android:attr/dividerVertical"
+			android:layout_width="match_parent"/>
+
+		<CheckBox
+			android:enabled="false"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="（以后版本可用）点击一个通过本软件所创建的快捷方式时，不执行它的操作，而是导入它的数据，并进入编辑界面，以创建新的快捷方式"
+			android:id="@+id/main_editmode"
+			android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="关于软件"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="10dp"/>
+
+		<View
+			android:layout_height="1dp"
+			android:background="?android:attr/dividerVertical"
+			android:layout_width="match_parent"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="作者：疯狂小瑞瑞"
+			android:layout_width="wrap_content"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="Copyright 2014-2018 LEORChn Soft."
+			android:layout_width="wrap_content"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="仅仅只是因为ES文件管理器，只因它不支持把文件的快捷方式用MX播放器打开，没有我想要的这种骚操作，因此开发了这样的软件。希望也能帮到你。"
+			android:layout_width="wrap_content"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<Button
+				android:layout_height="wrap_content"
+				style="?android:attr/buttonStyleSmall"
+				android:text="捐款帮助开发（建议3元）"
+				android:layout_width="wrap_content"
+				android:id="@+id/help_donate"/>
+
+			<viewproxy.AutoScrollTextView
+				android:layout_height="wrap_content"
+				android:text="----- 感谢捐赠 ----- 感谢 *虎 于 2018年9月1日 捐赠的 ￥3"
+				android:layout_width="match_parent"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:textColor="#00ff00"/>
+
+		</LinearLayout>
+
+		<Button
+			android:layout_height="wrap_content"
+			style="?android:attr/buttonStyleSmall"
+			android:text="反馈建议和问题（通过QQ）"
+			android:layout_width="wrap_content"
+			android:id="@+id/help_report"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			style="?android:attr/buttonStyleSmall"
+			android:text="切换主题"
+			android:layout_width="wrap_content"
+			android:id="@+id/help_theme"/>
+
+	</LinearLayout>
+
+</ScrollView>
+
