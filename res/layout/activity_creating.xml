@@ -68,7 +68,7 @@
 				android:layout_height="64dp"
 				android:layout_width="64dp"
 				android:id="@+id/creat_image"
-				android:src="@drawable/ic_launcher"/>
+				android:src="@drawable/ic_launcher_256"/>
 
 			<LinearLayout
 				android:layout_height="wrap_content"
@@ -152,7 +152,8 @@
 				android:ems="10"
 				android:layout_width="match_parent"
 				android:hint="Mime-Type；默认为 */*"
-				android:id="@+id/creat_mimetype"/>
+				android:id="@+id/creat_mimetype"
+				android:singleLine="true"/>
 
 		</LinearLayout>
 

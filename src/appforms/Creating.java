@@ -64,9 +64,9 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 				Intent i=getIntent();
 				String a=i.getAction(),
 					type=finalMime=extraMime=i.getType();
-
+				//tip(string(i.getData(),"\n",i.getType()));
 				if(Intent.ACTION_SEND.equals(a)){ // 单个分享
-					if("text/plain".equals(type)){ // 分享的是文本
+					if(MIME_TYPE_TEXT_PLAIN.equals(type)){ // 分享的是文本
 						extraText=i.getStringExtra(Intent.EXTRA_TEXT);
 						setText(fv(id.creat_preview),"文本："+extraText);
 						

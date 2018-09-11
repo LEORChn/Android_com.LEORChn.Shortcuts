@@ -24,7 +24,8 @@ public class Main extends Activity1 implements Consts{
 		}
 	}
 	String themeAsk=DIR_data+"THEME_FIRST_ASK",
-		themePunish=DIR_data+"THEME_MATERIAL_PUNISH";
+		themePunish=DIR_data+"THEME_MATERIAL_PUNISH",
+		hintSelectFolder=DIR_data+"HINT_SELECT_FOLDER";
 	@Override protected boolean onIdle(){
 		if(Sys.apiLevel()>=21){
 			File f=new File(themeAsk);
@@ -62,7 +63,7 @@ public class Main extends Activity1 implements Consts{
 			}
 		}else
 			fv(id.help_theme).setEnabled(false);
-		btnbind(id.help_clipboard, id.help_file, id.help_donate, id.help_report, id.help_theme);
+		btnbind(id.help_clipboard, id.help_file, id.help_folder, id.help_donate, id.help_report, id.help_theme);
 		try{
 			Window w=getWindow();
 			w.setTitle(
@@ -87,6 +88,25 @@ public class Main extends Activity1 implements Consts{
 				i=new Intent(Intent.ACTION_GET_CONTENT)
 					.setType("*/*");
 				startActivityForResult(i,ACTIVITY_FOR_RESULT_SELECTED_FILE);
+				return;
+			case id.help_folder:
+				i=new Intent(Intent.ACTION_GET_CONTENT)
+					.setType("*/*");
+				final File f=new File(hintSelectFolder);
+				if(f.exists())
+					startActivityForResult(i,ACTIVITY_FOR_RESULT_SELECTED_FOLDER);
+				else{
+					final Intent k=i;
+					new Msgbox("提示","【选择文件夹】功能需要选择文件夹内的文件，随后程序会自动判断为所选择的文件所在的文件夹。","确定","不再提示"){
+						@Override protected void onClick(int i){
+							if(i==vbno)
+								try{
+									f.createNewFile();
+								}catch(Throwable e){}
+							startActivityForResult(k,ACTIVITY_FOR_RESULT_SELECTED_FOLDER);
+						}
+					};
+				}
 				return;
 			case id.help_donate:
 				i=new Intent(Intent.ACTION_VIEW,Uri.parse("https://leorchn.github.io/?about"));
@@ -117,6 +137,32 @@ public class Main extends Activity1 implements Consts{
 			case ACTIVITY_FOR_RESULT_SELECTED_FILE: // 使用 “选择文件” 返回成功
 				data.setAction(Intent.ACTION_SEND)
 					.setClass(this,Creating.class);
+				execIntent(data);
+				break;
+			case ACTIVITY_FOR_RESULT_SELECTED_FOLDER:
+				Uri u=data.getData()==null?
+					data.getParcelableExtra(Intent.EXTRA_STREAM):
+					data.getData();
+				File f;
+				if(u==null){
+					new Msgbox("获取路径发生异常","路径数据始终为空。","ok");
+					return;
+				}else if("content".equals(u.getScheme())){
+					String s=Media.Uri2StringPath(this,u);
+					if(android.text.TextUtils.isEmpty(s)){
+						new Msgbox("转换路径发生异常","路径数据为空，请尝试用其他程序选择文件。","ok");
+						return;
+					}
+					f=new File(s);
+				}else if(!"file".equals(u.getScheme())){
+					new Msgbox("获取路径发生异常",string("路径类型不匹配：",u.getScheme()),"ok");
+					return;
+				}else
+					f=new File(u.getPath());
+				u=Uri.parse(string("file://",f.getParent()));
+				data.setAction(Intent.ACTION_SEND)
+					.setClass(this,Creating.class)
+					.setDataAndType(u,MIME_TYPE_FOLDER);
 				execIntent(data);
 				break;
 			case ACTIVITY_FOR_RESULT_CREATE_SOURCE_DESKTOP: // 在桌面使用 “创建快捷方式” 并进入编辑界面返回成功

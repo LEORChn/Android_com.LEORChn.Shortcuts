@@ -1,16 +1,19 @@
 package appforms;
 
 public interface Consts{
-	public static String
+	public static final String
 		LINK_TYPE_TEXT="text",
 		LINK_TYPE_FILE="file",
 		LINK_TYPE_FILES="files",
 		READ_TYPE_SHARE="share",
 		READ_TYPE_FILE="openfile",
 		READ_TYPE_TEXT="copytext",
-		CREATE_SOURCE_DESKTOP="from_desktop";
+		CREATE_SOURCE_DESKTOP="from_desktop",
+		MIME_TYPE_TEXT_PLAIN="text/plain",
+		MIME_TYPE_FOLDER="resource/folder";
 	public static final int
 		ACTIVITY_FOR_RESULT_SELECTED_FILE=37,
+		ACTIVITY_FOR_RESULT_SELECTED_FOLDER=39,
 		ACTIVITY_FOR_RESULT_CROP_IMAGE_CONFIRMED=45,
 		ACTIVITY_FOR_RESULT_CROP_IMAGE_FINISHED=46,
 		ACTIVITY_FOR_RESULT_CREATE_SOURCE_DESKTOP=52,

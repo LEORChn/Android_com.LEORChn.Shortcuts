@@ -39,15 +39,16 @@ public final class R {
         public static final int file_video=0x7f020008;
         public static final int file_word=0x7f020009;
         public static final int ic_launcher=0x7f02000a;
-        public static final int topmenu_edit=0x7f02000b;
-        public static final int topmenu_upload=0x7f02000c;
-        public static final int viewbutton=0x7f02000d;
+        public static final int ic_launcher_256=0x7f02000b;
+        public static final int topmenu_edit=0x7f02000c;
+        public static final int topmenu_upload=0x7f02000d;
+        public static final int viewbutton=0x7f02000e;
     }
     public static final class id {
         public static final int activitieschooser_list=0x7f0a0000;
         public static final int creat_appointed=0x7f0a000f;
         public static final int creat_autocleantemp=0x7f0a0005;
-        public static final int creat_draft=0x7f0a0015;
+        public static final int creat_draft=0x7f0a0016;
         public static final int creat_image=0x7f0a0004;
         public static final int creat_intentaction=0x7f0a0007;
         public static final int creat_interface_open=0x7f0a000b;
@@ -62,14 +63,15 @@ public final class R {
         public static final int creat_preview=0x7f0a0003;
         public static final int creat_test=0x7f0a0010;
         public static final int help_clipboard=0x7f0a0013;
-        public static final int help_donate=0x7f0a0017;
+        public static final int help_donate=0x7f0a0018;
         public static final int help_file=0x7f0a0014;
+        public static final int help_folder=0x7f0a0015;
         public static final int help_isfromdesktop=0x7f0a0012;
-        public static final int help_report=0x7f0a0018;
-        public static final int help_theme=0x7f0a0019;
-        public static final int listsub_image=0x7f0a001a;
-        public static final int listsub_title=0x7f0a001b;
-        public static final int main_editmode=0x7f0a0016;
+        public static final int help_report=0x7f0a0019;
+        public static final int help_theme=0x7f0a001a;
+        public static final int listsub_image=0x7f0a001b;
+        public static final int listsub_title=0x7f0a001c;
+        public static final int main_editmode=0x7f0a0017;
         public static final int notice_content_path=0x7f0a0001;
         public static final int notice_launcher_not_support=0x7f0a0002;
     }
