@@ -155,10 +155,11 @@
 				android:id="@+id/help_donate"/>
 
 			<viewproxy.AutoScrollTextView
+				android:id="@+id/help_donate_list"
 				android:layout_height="wrap_content"
-				android:text="----- 感谢捐赠 ----- 感谢 *虎 于 2018年9月1日 捐赠的 ￥3"
 				android:layout_width="match_parent"
 				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:text="Loading..."
 				android:textColor="#00ff00"/>
 
 		</LinearLayout>

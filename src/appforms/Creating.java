@@ -40,15 +40,12 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 				clearTemp=(CheckBox)fv(id.creat_autocleantemp);
 				clearTemp.setChecked(true);
 				
-				share=(RadioButton)fv(id.creat_interface_share);
-				openfile=(RadioButton)fv(id.creat_interface_open);
-				copytext=(RadioButton)fv(id.creat_interface_text);
 				later=(RadioButton)fv(id.creat_invoke_later);
 				appoint=(RadioButton)fv(id.creat_invoke_appoint);
 				
 				preview=(ImageView)fv(id.creat_image);
 				popupMenu=new PopupMenuCompat(this,preview,menu.icon_chooser);
-				btnbind(preview, share,openfile,copytext,later,appoint);
+				btnbind(preview, later,appoint);
 				btnbind(id.creat_test, id.creat_ok);
 				
 				app_name=(TextView)fv(id.creat_appointed);
@@ -84,7 +81,7 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 						
 						File f=new File(u.getPath());//通过这段代码预设快捷方式的名称
 						String n=f.getName();
-						if(n.contains(":"))
+						if(extraText.contains("com.android.providers"))
 							fv(id.notice_content_path).setVisibility(View.VISIBLE);
 						if(extraText.startsWith("file")){
 							setText(fv(id.creat_name),TextUtils.isEmpty(n)?"":n);
@@ -102,6 +99,14 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 					};
 					extraType=2;
 				}
+				int[]lstype={array.intentAction_name_text,array.intentAction_name_file,array.intentAction_name_file_multi};
+				actionBase=new Base();
+				String[]litem=getResources().getStringArray(lstype[extraType]);
+				for(String item:litem)
+					actionBase.add(item);
+				
+				actionSelector.setAdapter(actionBase);
+				
 				onItemSelected(actionSelector,null,0,0);
 				onItemSelected(mimeSelector,null,0,0);
 				break;
@@ -109,16 +114,36 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 				switch(extraType){ // 此处表示，0只去除打开接口，1只去除复制接口，2只保留分享接口
 					case 0: // 文本
 					case 2: // 多个
-						openfile.setEnabled(false);
+						//openfile.setEnabled(false);
 						if(extraType==0)break;
 					case 1: // 单个
-						copytext.setEnabled(false);
+						//copytext.setEnabled(false);
 				}
-				share.setChecked(true);
-				resetInvokable(true); // 初始化窗口时的默认行为是分享，因此固定true
+				//share.setChecked(true);
 				onResume();
 		}
 		return hasinit++<9;
+	}
+	class Base extends BaseAdapter{
+		ArrayList<String>a=new ArrayList<>();
+		public void add(String s){ a.add(s); }
+		public String get(int i){ return a.get(i).split("\\|")[0]; }
+		@Override public int getCount(){ return a.size(); }
+		@Override public Object getItem(int p){ return null; }
+		@Override public long getItemId(int p){ return 0; }
+		@Override public View getView(int p, View v, ViewGroup p3){
+			String[]s=a.get(p).split("\\|");
+			ViewGroup vg=v==null?
+				inflateView(layout.listsub_spinner):
+				(ViewGroup)v;
+			setText(fv(vg,id.listsub_title),s[0]);
+			setText(fv(vg,id.listsub_desc),
+				s.length<2?
+					"":
+					s[1]
+			);
+			return vg;
+		}
 	}
 	@Override protected void onResume() {
 		super.onResume(); // 如果更改了这个函数的代码,记得要连 Main.java 一起
@@ -141,18 +166,25 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 		extraType 0		1		2
 	*/
 	ImageView preview;
-	RadioButton share,openfile,copytext,later,appoint;
+	RadioButton later,appoint;
 	CheckBox clearTemp;
 	Button testLnk,addLnk;
 	EditText name,mime;
 	Spinner actionSelector,mimeSelector;
+	Base actionBase;
 	TextView app_name;
 	final String
 		appointed_null="未指定默认程序。",
 		appointed_app="指定默认程序： %s 的 %s。";
 	@Override public void onItemSelected(AdapterView<?>a,View b,int c,long d){
 		if(a==actionSelector){//这块地方懒了，用 switch(getId()) 才是我的正常风格
-			finalAction=getResources().getStringArray(array.intentAction)[c];
+			int[]lstype={array.intentAction_text,array.intentAction_file,array.intentAction_file_multi};
+			finalAction=getResources().getStringArray(lstype[extraType])[c];
+			boolean emp=TextUtils.isEmpty(finalAction);
+			//若当前启用时为空，或者禁用时不为空，则进行重置。初始化也进行重置
+			if(appoint.isEnabled() == emp || !(later.isChecked() | appoint.isChecked()))
+				resetInvokable(!emp);
+			//tip("yixuanze "+finalAction);
 			return;
 		}
 		String[]s={extraMime,"text/*","image/*","audio/*","video/*","*/*"};
@@ -169,7 +201,7 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 		2.当新的点击与之前选项相同时，不更改默认程序选项
 		3.而如果点击了不同的选项，则刷新选项组，以及重设默认程序选项
 	*/
-	void resetType(int setTo){ // 重设快捷方式的类型
+	/*void resetType(int setTo){ // 重设快捷方式的类型
 		if(readType==setTo)return;
 		readType=setTo; // 这一行和上一行 履行 逻辑2
 		RadioButton[]r={share,openfile,copytext};
@@ -177,7 +209,7 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 			if(i != setTo)
 				r[i].setChecked(false); // 这一行和以上 履行 逻辑3 中的 刷新选项组
 		resetInvokable(setTo != 2);//只有2，也就是说，只有复制文本的类型，是不能选择调用的程序
-	}
+	}*/
 	void resetInvokable(boolean appointable){ // 重置这个快捷方式的行为调用的程序
 		later.setChecked(true);
 		appoint.setChecked(false);
@@ -209,18 +241,18 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 		return super.onOptionsItemSelected(item);
 	}
 	@Override public void onClick(View v){
-		int resetType=2;
+		//int resetType=2;
 		switch(v.getId()){
 			case id.creat_image:
 				popupMenu.show();
 				break;
-			case id.creat_interface_share: // 预计走到0，没问题
+			/*case id.creat_interface_share: // 预计走到0，没问题
 				resetType--;
 			case id.creat_interface_open: // 预计走到1，没问题
 				resetType--;
 			case id.creat_interface_text:
 				resetType(resetType); // resetType 的 逻辑1
-				break;
+				break;*/
 			case id.creat_invoke_later:
 				appoint.setChecked(false);
 				appoint_package=null;//只要把一个设为null就行了，这个设为null就表示只在打开快捷方式时决定调用的程序
@@ -229,10 +261,8 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 			case id.creat_invoke_appoint:
 				later.setChecked(true);
 				onClick(later);
-				String[]intentAction={Intent.ACTION_SEND, finalAction};
-				Intent i=new Intent(intentAction[readType]) //0分享 1打开 2不可能运行到这
-					.setType(prepareFinalMime()),
-				c=new Intent(this,ActivitiesChooser.class).putExtra("intent",i);
+				Intent i=new Intent(finalAction).setType(prepareFinalMime()),
+					c=new Intent(this,ActivitiesChooser.class).putExtra("intent",i);
 				startActivityForResult(c,ACTIVITY_FOR_RESULT_SELECTED_ACTIVITY);
 				break;
 			case id.creat_test:
@@ -416,7 +446,9 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 		Intent pending=null;
 		String[]scheme={LINK_TYPE_TEXT, LINK_TYPE_FILE, LINK_TYPE_FILES},
 			host={READ_TYPE_SHARE, READ_TYPE_FILE, READ_TYPE_TEXT};
-		
+		if(TextUtils.isEmpty(finalAction)) readType=2; //复制文本
+		else if(finalAction.contains("SHARE")) readType=0; //分享
+		else readType=1; //文件操作
 		pending=new Intent(Intent.ACTION_MAIN)
 			.setClass(this,ShortcutExecuter.class)//设快捷方式的执行者是ShortcutExecuter
 			.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -434,7 +466,7 @@ public class Creating extends Activity1 implements Consts, AdapterView.OnItemSel
 	String prepareFinalMime(){
 		if(mime.isEnabled())
 			finalMime=mime.getText().toString();//已启用自定义，因此设为自定义的
-		else if(TextUtils.isEmpty(finalMime)) finalMime="*/*"; //最终mime是空，默认
+		if(TextUtils.isEmpty(finalMime)) finalMime="*/*"; //最终mime是空，默认
 		//这里一个elseif的原因是，会提供一个空mime的非自定选项。
 		//即使自动为空，也默认是*/*
 		return finalMime;

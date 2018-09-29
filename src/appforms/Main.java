@@ -5,6 +5,8 @@ import android.widget.*;
 import android.content.*;
 import android.net.*;
 import java.io.*;
+import java.text.*;
+import java.util.*;
 
 public class Main extends Activity1 implements Consts{
     @Override protected void oncreate(){
@@ -72,6 +74,7 @@ public class Main extends Activity1 implements Consts{
 					getString(string.app_v),
 					getPackageManager().getPackageInfo(getPackageName(),0).versionName));
 		}catch(Throwable e){}
+		loadDonateList();
 		return false;
 	}
 	@Override public void onClick(View v){
@@ -179,5 +182,34 @@ public class Main extends Activity1 implements Consts{
 			startActivity(i);
 		}
 	}
-	
+	void loadDonateList(){
+		final Activity1 This=this;
+		new Http("get","https://raw.githubusercontent.com/LEORChn/LEORChn.github.io/master/api/dntlist.json","",""){
+			@Override protected void onload(String s){
+				FSON j=new FSON(s);
+				if(j.canRead()){
+					StringBuilder b=new StringBuilder(" ----- 感谢捐赠 ----- ");
+					SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm"),
+						cnf=new SimpleDateFormat("yyyy年M月d日");
+					j=j.getList("data");
+					for(int i=0,len=j.length();i<len;i++){
+						FSON k=j.getObject(i);
+						try{
+							Date d=f.parse(k.get("t",""));
+							if(d.getTime()>1534262400000l){
+								string(b,"感谢 ",k.get("n",""),
+									" 于",cnf.format(d),
+									"捐赠的￥",k.get("p",""),"；");
+							}else{
+								break;
+							}
+						}catch(Throwable e){}
+					}
+					setText(fv(id.help_donate_list),b.toString());
+				}else{
+					setText(fv(id.help_donate_list),"加载失败，请前往捐款页查看捐赠者名单。");
+				}
+			}
+		};
+	}
 }

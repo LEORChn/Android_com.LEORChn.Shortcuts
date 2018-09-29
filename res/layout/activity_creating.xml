@@ -110,7 +110,7 @@
 
 		<TextView
 			android:layout_height="wrap_content"
-			android:text="程序入口（以后版本能自定义）"
+			android:text="调用方式（以后版本能自定义）"
 			android:layout_width="wrap_content"
 			android:layout_marginTop="10dp"/>
 
@@ -120,14 +120,13 @@
 			android:layout_width="match_parent"/>
 
 		<Spinner
-			android:layout_height="36dp"
+			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:id="@+id/creat_intentaction"
-			android:entries="@array/intentAction"/>
+			android:id="@+id/creat_intentaction"/>
 
 		<TextView
 			android:layout_height="wrap_content"
-			android:text="打开方式"
+			android:text="数据格式"
 			android:layout_width="wrap_content"
 			android:layout_marginTop="10dp"/>
 
@@ -156,35 +155,6 @@
 				android:singleLine="true"/>
 
 		</LinearLayout>
-
-		<TextView
-			android:layout_height="wrap_content"
-			android:text="调用方式"
-			android:layout_width="wrap_content"
-			android:layout_marginTop="10dp"/>
-
-		<View
-			android:layout_height="1dp"
-			android:background="?android:attr/dividerVertical"
-			android:layout_width="match_parent"/>
-
-		<RadioButton
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:text="“分享” 接口（保持原行为，忽略入口选项）"
-			android:id="@+id/creat_interface_share"/>
-
-		<RadioButton
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:text="“打开文件” 接口（仅限单个文件）"
-			android:id="@+id/creat_interface_open"/>
-
-		<RadioButton
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:text="“复制文本” 接口（仅限文本）"
-			android:id="@+id/creat_interface_text"/>
 
 		<TextView
 			android:layout_height="wrap_content"

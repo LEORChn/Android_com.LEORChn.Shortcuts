@@ -9,4 +9,18 @@
 		<item>所有类型</item>
 		<item>自定义</item>
 	</string-array>
+
+	<string-array name="intentAction_name_file">
+		<item>查看文件|Intent.ACTION_VIEW 的值</item>
+		<item>分享|Intent.ACTION_SEND 的值</item>
+		<item>文档|Intent.ACTION_OPEN_DOCUMENT 的值</item>
+		<item>MAIN|Intent.ACTION_MAIN 的值</item>
+	</string-array>
+	<string-array name="intentAction_name_file_multi">
+		<item>分享|Intent.ACTION_SEND 的值</item>
+	</string-array>
+	<string-array name="intentAction_name_text">
+		<item>复制文本</item>
+		<item>分享|Intent.ACTION_SEND 的值</item>
+	</string-array>
 </resources>

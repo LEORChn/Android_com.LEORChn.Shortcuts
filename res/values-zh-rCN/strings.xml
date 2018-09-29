@@ -5,5 +5,5 @@
 	<string name="app_name_creating">创建自定义快捷方式</string>
 	<string name="app_v">&#160;版本</string>
 	<string name="notice_launcher_not_support"><![CDATA[注意\n请在桌面程序使用 “添加快捷方式” 或者 “添加小部件” 功能进入本程序。\n或者请更新你的桌面程序。\n\n原因：\n检测到你的设备系统使用新版本接口，并且你的桌面程序不支持新版的接口。\n在安卓8.0开始，系统使用了新版快捷方式接口。如果你的桌面程序不支持这个接口，也会对其他想创建快捷方式的程序造成困扰。]]></string>
-	<string name="notice_content_path"><![CDATA[注意\n请谨慎使用当前路径创建快捷方式，这可能会造成执行时故障。\n可尝试使用其他程序传入文件。\n更改入口为 ACTION_OPEN_DOCUMENT 或许也能解决。]]></string>
+	<string name="notice_content_path"><![CDATA[注意\n请谨慎使用当前路径创建快捷方式，这可能会造成执行时故障。\n可尝试使用其他程序传入文件。\n更改调用方式为 ACTION_OPEN_DOCUMENT 或许也能解决。]]></string>
 </resources>

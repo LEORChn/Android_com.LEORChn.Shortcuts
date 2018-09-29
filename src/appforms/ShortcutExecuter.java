@@ -59,8 +59,8 @@ public class ShortcutExecuter extends Activity1 implements Consts{
 			try{
 				startActivity(i);
 			}catch(Throwable e){
-				Class<?>[]eType={SecurityException.class,Throwable.class};
-				String[]eDesc={"安全问题","未准确识别"};
+				Class<?>[]eType={SecurityException.class,ActivityNotFoundException.class,Throwable.class};
+				String[]eDesc={"安全问题","没有支持的程序","未准确识别"};
 				int eIndex=0;
 				for(int len=eType.length;eIndex<len;eIndex++){
 					if(e.getClass().isAssignableFrom(eType[eIndex])){

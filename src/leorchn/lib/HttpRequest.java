@@ -3,46 +3,20 @@
  * LEOR_Chn Soft.
  */
 package leorchn.lib;
-
-import android.app.*;
-import android.content.*;
-import android.net.*;
-import android.os.*;
-import appforms.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import android.widget.*;
 import java.util.zip.*;
 
 public class HttpRequest {
-	/*public static String 获得数据(Activity form,String msg,final String 方法,final String 地址,final String 请求头,final String 主体){
-		final ArrayList<String>ok=new ArrayList<String>();
-		ProgressDialog pd=ProgressDialog.show(form,"",msg,true,true);
-		try{
-			new Thread(){public void run(){
-				ok.add(http(方法,地址,请求头,主体));
-				new Handler(Looper.getMainLooper()){
-					public void handleMessage(Message msg) {
-						throw new RuntimeException();
-					} 
-				}.obtainMessage().sendToTarget();
-			}}.start();
-			Looper.getMainLooper().loop();
-		}catch(Exception e){}
-		pd.dismiss();
-		return ok.get(0);
-	}
-	public static String 获得数据(final String 方法,final String 地址,final String 请求头,final String 主体){
-		final ArrayList<String>ok=new ArrayList<String>();
-		try{
-			Thread t=new Thread(){public void run(){
-				ok.add(http(方法,地址,请求头,主体));
-			}};
-			t.start();t.join();
-		}catch(Exception e){}
-		return ok.get(0);
-	}*/
+	/**	通过调用服务器接口，获得文本数据
+		@param method HTTP请求的协议方法
+		@param url HTTP请求的地址
+		@param header HTTP请求的请求头
+		@param formdata HTTP请求尾部携带的额外信息
+		@return 服务器返回的文本数据，正常情况下。
+		<br/>错误信息，连接发生错误的情况下。
+	*/
 	public static String http(String method,String url,String reqHeader,String formdata){
 		String v8="";//方法：GET、POST等
 		try{
@@ -62,6 +36,14 @@ public class HttpRequest {
 		}
 		return v8;
 	}
+	/**	通过调用服务器接口，获得输入流。请自行决定何时关闭输入流
+		@param method HTTP请求的协议方法
+		@param url HTTP请求的地址
+		@param header HTTP请求的请求头
+		@param formdata HTTP请求尾部携带的额外信息
+		@return 服务器返回的数据的输入流，正常情况下。
+		<br/>错误信息的文本输入流，连接发生错误的情况下。
+	*/
 	public static InputStream getdataInputStream(String method,String url,String reqHeader,String formdata){
 		InputStream s=null;
 		try{
@@ -74,18 +56,26 @@ public class HttpRequest {
 					h.setRequestProperty(dat[0].trim(),dat[1].trim());}
 
 			if(!formdata.isEmpty()) h.getOutputStream().write(formdata.getBytes("UTF8"));
+			Activity1.pl("<-->   http code: ",h.getResponseCode());
 			switch(h.getResponseCode()){
 				case HttpURLConnection.HTTP_OK:
 				case HttpURLConnection.HTTP_CREATED:
 				case HttpURLConnection.HTTP_ACCEPTED:
 					s = h.getInputStream();
 					break;
+				case 301:
+					s = h.getInputStream();
+					break;
 				default:
 					s = h.getErrorStream();
 			}//不能在此关闭输入流，会造成错误
-		}catch(Exception e){ s=new ByteArrayInputStream(E.trace(e).getBytes()); }
+		}catch(Throwable e){ s=new ByteArrayInputStream(E.trace(e).getBytes()); }
 		return s;
 	}
+	/**	通过解析 deflate 格式压缩过的输入流，获得文本数据。其内部将会自动关闭输入的输入流
+		@param is deflate 格式压缩过的输入流
+		@return 服务器返回的文本数据，正常情况下。
+	*/
 	public static String deflateDecoder(InputStream is){
 		try{
 			byte[]v0=new byte[1024],buffer=new byte[4096];
@@ -107,8 +97,8 @@ public class HttpRequest {
 			byte[] output = outputStream.toByteArray();
 			outputStream.close();
 			return new String(output, "UTF-8");
-		}catch(Exception e){
-			return Arrays.toString(e.getStackTrace());
+		}catch(Throwable e){
+			return E.trace(e);
 		}
     }
 }

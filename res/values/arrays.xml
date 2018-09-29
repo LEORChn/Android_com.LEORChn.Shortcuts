@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string-array name="mimeStyle">
 		<item>Auto</item>
@@ -21,7 +20,7 @@
 		<item>Image 3</item>
 		<item>Image 4</item>
 	</string-array>
-	<string-array name="intentAction">
+	<!--string-array name="intentAction">
 		<item>android.intent.action.VIEW</item>
 		<item>android.intent.action.OPEN_DOCUMENT</item>
 		<item>android.intent.action.MAIN</item>
@@ -30,5 +29,31 @@
 		<item>(Default) Intent.ACTION_MAIN</item>
 		<item>Intent.ACTION_VIEW</item>
 		<item>Intent.ACTION_OPEN_DOCUMENT</item>
+	</string-array-->
+	<string-array name="intentAction_file">
+		<item>android.intent.action.VIEW</item>
+		<item>android.intent.action.SEND</item>
+		<item>android.intent.action.OPEN_DOCUMENT</item>
+		<item>android.intent.action.MAIN</item>
+	</string-array>
+	<string-array name="intentAction_file_multi">
+		<item>android.intent.action.SEND</item>
+	</string-array>
+	<string-array name="intentAction_text">
+		<item></item>
+		<item>android.intent.action.SEND</item>
+	</string-array>
+	<string-array name="intentAction_name_file">
+		<item>View|Value of Intent.ACTION_VIEW</item>
+		<item>Share|Value of Intent.ACTION_SEND</item>
+		<item>Document|Value of Intent.ACTION_OPEN_DOCUMENT</item>
+		<item>Main|Value of Intent.ACTION_MAIN</item>
+	</string-array>
+	<string-array name="intentAction_name_file_multi">
+		<item>Share|Value of Intent.ACTION_SEND</item>
+	</string-array>
+	<string-array name="intentAction_name_text">
+		<item>Copy text</item>
+		<item>Share|Value of Intent.ACTION_SEND</item>
 	</string-array>
 </resources> 

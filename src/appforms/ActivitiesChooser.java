@@ -25,7 +25,7 @@ public class ActivitiesChooser extends Activity1 implements AdapterView.OnItemCl
 		Intent i=getIntent().getParcelableExtra("intent");
 		List<ResolveInfo>l=pm.queryIntentActivities(i,0);
 		if(l.size()==0){
-			new Msgbox("没有支持的程序","没有找到支持此操作的程序。\n请更改打开方式，或者安装一些支持此打开方式的程序后再试。","返回上一页"){
+			new Msgbox("没有支持的程序","没有找到支持此操作的程序。\n请更改调用方式或数据格式，或者安装一些支持的程序后再试。","返回上一页"){
 				@Override protected void onClick(int i){
 					finish();
 				}
